@@ -4,8 +4,21 @@
     tools:context="com.aqib.icrave.MainActivity">
 
     <item
+        android:id="@+id/action_nutrition"
+        android:title="@string/action_nutrition"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_consent"
+        android:title="@string/action_consent"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
 </menu>

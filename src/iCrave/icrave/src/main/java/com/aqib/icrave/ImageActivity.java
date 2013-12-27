@@ -1,0 +1,57 @@
+package com.aqib.icrave;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+
+public class ImageActivity extends ActionBarActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        showInfo(savedInstanceState);
+    }
+
+    /**
+     * Notify the user that they need to imagine the text
+     *
+     * @param savedInstanceState
+     */
+    private void showInfo(final Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.image_info)
+                .setTitle(R.string.info);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                showImageFragment(savedInstanceState);
+            }
+        });
+
+        builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
+     * Show the user the text which they need to imagine
+     *
+     * @param savedInstanceState
+     */
+    private void showImageFragment(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_image);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new ImageFragment())
+                    .commit();
+        }
+    }
+
+}
