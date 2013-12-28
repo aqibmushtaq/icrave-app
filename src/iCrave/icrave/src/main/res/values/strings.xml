@@ -13,5 +13,6 @@
     <string name="title_activity_root">RootActivity</string>
     <string name="image_info">"Imagine the description for the 10 seconds"</string>
     <string name="info">Info</string>
+    <string name="choose">Choose</string>
 
 </resources>

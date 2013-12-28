@@ -1,5 +1,6 @@
 package com.aqib.icrave;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,10 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class ImageFragment extends Fragment {
+
+    public static final int RESULT_OK = 0;
 
     private int progress = 0;
 
@@ -23,29 +23,31 @@ public class ImageFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.imageDesc)).setText("Some image description here");
         final ProgressBar countdownBar = (ProgressBar) rootView.findViewById(R.id.countdown);
 
-        //Declare the timer
-        final Timer t = new Timer();
-        //Set the schedule function and rate
-        t.scheduleAtFixedRate(new TimerTask() {
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+            protected Integer doInBackground(Integer... ints) {
+                while (progress++ < 100) {
+                    if (isCancelled())
+                        return -1;
 
-            @Override
-            public void run() {
-                Log.d("ImageFragment", "Timer: " + progress);
-                countdownBar.setProgress(progress);
-                if (progress >= 100) {
-                    Log.d("ImageFragment", "End timer");
-                    t.cancel();
-                    t.purge();
-
-                    //start the options activity
-
+                    Log.d("ImageFragment", "Timer: " + progress);
+                    countdownBar.setProgress(progress);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                progress += 1;
-            }
 
-        }, 0, 100);
+                getActivity().setResult(RESULT_OK);
+                getActivity().finish();
+                cancel(true);
+                return 1;
+            }
+        };
+        task.execute(null);
 
         return rootView;
     }
+
 
 }
