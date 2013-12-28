@@ -31,6 +31,15 @@ public class ImageActivity extends ActionBarActivity {
 
         builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                setResult(HomeFragment.RESULT_CANCEL);
+                finish();
+            }
+        });
+
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                setResult(HomeFragment.RESULT_CANCEL);
                 finish();
             }
         });

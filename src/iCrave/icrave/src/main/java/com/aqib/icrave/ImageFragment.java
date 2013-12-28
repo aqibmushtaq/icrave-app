@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class ImageFragment extends Fragment {
 
-    public static final int RESULT_OK = 0;
+    protected AsyncTask<Integer, Integer, Integer> task;
 
     private int progress = 0;
 
@@ -23,22 +23,26 @@ public class ImageFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.imageDesc)).setText("Some image description here");
         final ProgressBar countdownBar = (ProgressBar) rootView.findViewById(R.id.countdown);
 
-        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+        task = new AsyncTask<Integer, Integer, Integer>() {
             protected Integer doInBackground(Integer... ints) {
                 while (progress++ < 100) {
                     if (isCancelled())
                         return -1;
-
-                    Log.d("ImageFragment", "Timer: " + progress);
-                    countdownBar.setProgress(progress);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    else if (getActivity() == null) { //Ensure that the activity still exists
+                        Log.d("ImageFragment", "Activity doesn't exists therefore stopping the countdown process");
+                        cancel(true);
+                    } else {
+                        Log.d("ImageFragment", "Timer: " + progress);
+                        countdownBar.setProgress(progress);
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
-                getActivity().setResult(RESULT_OK);
+                getActivity().setResult(HomeFragment.RESULT_OK);
                 getActivity().finish();
                 cancel(true);
                 return 1;

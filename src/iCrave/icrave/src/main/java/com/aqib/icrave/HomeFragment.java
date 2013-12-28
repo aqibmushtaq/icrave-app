@@ -15,6 +15,9 @@ import android.view.ViewGroup;
  */
 public class HomeFragment extends Fragment {
 
+    public static final int RESULT_OK = 1;
+    public static final int RESULT_CANCEL = 2;
+
     private static final int GET_CRAVING_RESULT = 0;
     private static final int CRAVING_RESULT_PASS = 0;
     private static final int CRAVING_RESULT_EAT_HEALTHY = 1;
@@ -43,7 +46,7 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GET_CRAVING_RESULT) {
             Log.d("HomeFragment", "Result: " + resultCode);
-            if (resultCode == ImageFragment.RESULT_OK)
+            if (resultCode == RESULT_OK)
                 showCravingOptions();
         }
     }
