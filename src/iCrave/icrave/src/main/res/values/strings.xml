@@ -2,9 +2,6 @@
 <resources>
 
     <string name="app_name">iCrave</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="action_nutrition">Nutrition</string>
     <string name="action_consent">Consent</string>
     <string name="action_settings">Settings</string>
@@ -14,5 +11,14 @@
     <string name="image_info">"Imagine the description for the 10 seconds"</string>
     <string name="info">Info</string>
     <string name="choose">Choose</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="rate_the_image">Rate the Image</string>
+    <string name="craving_decision">Craving Decision</string>
+    <string name="save">Save</string>
+    <string name="healthy_snack">Healthy Snack</string>
+    <string name="unhealthy_snack">Unhealthy Snack</string>
+    <string name="show_another_image">Show another image</string>
 
+    <!-- errors -->
+    <string name="error_no_rating">Please rate the image before continuing</string>
 </resources>
