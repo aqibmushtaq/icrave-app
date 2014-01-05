@@ -25,6 +25,9 @@ public class ResultFragment extends Fragment {
         final Button buttonUnhealthy = (Button) rootView.findViewById(R.id.button_unhealthy_snack);
         final Button buttonAnotherImage = (Button) rootView.findViewById(R.id.button_another_image);
 
+        //create toast object once
+        final Toast toastNoRating = Toast.makeText(getActivity().getApplicationContext(), R.string.error_no_rating, Toast.LENGTH_LONG);
+
         View.OnClickListener resultClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,8 +35,7 @@ public class ResultFragment extends Fragment {
                 Log.d("ResultFragment", "Rating: " + rating);
                 if (rating == 0) {
                     Log.d("ResultFragment", "User tried submitting without rating the image");
-                    Toast t = Toast.makeText(getActivity().getApplicationContext(), R.string.error_no_rating, Toast.LENGTH_LONG);
-                    t.show();
+                    toastNoRating.show();
                 } else {
                     //record the result
 
