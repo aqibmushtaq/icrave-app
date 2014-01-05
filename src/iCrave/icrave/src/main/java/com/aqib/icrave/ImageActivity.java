@@ -10,7 +10,10 @@ public class ImageActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showInfo(savedInstanceState);
+        if (getResources().getBoolean(R.bool.SHOW_INFO_BEFORE_IMAGE))
+            showInfo(savedInstanceState);
+        else
+            showImageFragment(savedInstanceState);
     }
 
     /**
