@@ -8,23 +8,24 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="iCrave"
         android:id="@+id/icrave"
+        android:layout_marginTop="54dp"
+        android:clickable="true"
+        android:background="@drawable/icrave_button1"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp"
-        android:clickable="true" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Undo"
         android:id="@+id/undo"
-        android:layout_marginBottom="39dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:text="@string/undo_previous_activity"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="47dp" />
+        android:layout_marginRight="16dp" />
+
 </RelativeLayout>

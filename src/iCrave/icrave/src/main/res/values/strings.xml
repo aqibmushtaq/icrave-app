@@ -18,7 +18,9 @@
     <string name="healthy_snack">Healthy Snack</string>
     <string name="unhealthy_snack">Unhealthy Snack</string>
     <string name="show_another_image">Show another image</string>
+    <string name="undo_previous_activity">Undo previous activity</string>
 
     <!-- errors -->
     <string name="error_no_rating">Please rate the image before continuing</string>
+
 </resources>
