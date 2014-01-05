@@ -12,16 +12,18 @@
     <string name="info">Info</string>
     <string name="choose">Choose</string>
     <string name="title_activity_result">ResultActivity</string>
-    <string name="rate_the_image">Rate the Image</string>
+    <string name="rate_the_image">How vividly did you imagine this image</string>
     <string name="craving_decision">Craving Decision</string>
     <string name="save">Save</string>
     <string name="healthy_snack">Healthy Snack</string>
     <string name="unhealthy_snack">Unhealthy Snack</string>
     <string name="show_another_image">Show another image</string>
     <string name="undo_previous_activity">Undo previous activity</string>
+    <string name="seconds">seconds remaining</string>
+    <string name="rating_no_image">No image</string>
+    <string name="rating_perfect_image">Perfect image</string>
 
     <!-- errors -->
     <string name="error_no_rating">Please rate the image before continuing</string>
-    <string name="seconds">seconds remaining</string>
 
 </resources>

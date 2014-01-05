@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -26,13 +27,31 @@
         android:clickable="false"
         android:stepSize="1" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rating_no_image"
+        android:id="@+id/textView3"
+        android:singleLine="false"
+        android:layout_below="@+id/rating"
+        android:layout_toLeftOf="@+id/linearLayout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rating_perfect_image"
+        android:id="@+id/textView4"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_toRightOf="@+id/linearLayout" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rating"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp">
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="fill_parent"
@@ -42,37 +61,39 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="39dp"
             android:id="@+id/textView2"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:textStyle="bold" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save"
             android:id="@+id/button_save"
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp" />
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_save_for_later"
+            android:longClickable="false" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/healthy_snack"
             android:id="@+id/button_healthy_snack"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/button_save"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_healthy" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/unhealthy_snack"
             android:id="@+id/button_unhealthy_snack"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/button_healthy_snack"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_non_healthy" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
