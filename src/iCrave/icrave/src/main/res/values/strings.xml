@@ -22,5 +22,6 @@
 
     <!-- errors -->
     <string name="error_no_rating">Please rate the image before continuing</string>
+    <string name="seconds">seconds remaining</string>
 
 </resources>

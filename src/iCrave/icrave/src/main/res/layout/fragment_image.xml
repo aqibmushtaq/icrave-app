@@ -31,4 +31,23 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="10"
+        android:id="@+id/timeRemaining"
+        android:layout_above="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/seconds"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/countdown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp" />
+
 </RelativeLayout>
