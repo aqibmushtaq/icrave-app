@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="btnStyle" parent="@android:style/Widget.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">0.6</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:background">@drawable/custom_btn_green</item>
+    </style>
+
+    <style name="btnStyleOrange" parent="@style/btnStyle">
+        <item name="android:background">@drawable/custom_btn_orange</item>
+    </style>
+
+    <style name="btnStyleYellow" parent="@style/btnStyle">
+        <item name="android:background">@drawable/custom_btn_yellow</item>
+    </style>
+
+    <style name="btnStyleGreen" parent="@style/btnStyle">
+        <item name="android:background">@drawable/custom_btn_green</item>
+    </style>
+
+    <style name="btnStyleBlue" parent="@style/btnStyle">
+        <item name="android:background">@drawable/custom_btn_blue</item>
+    </style>
+
+</resources>

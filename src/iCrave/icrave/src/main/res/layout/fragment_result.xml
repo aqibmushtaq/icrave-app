@@ -52,7 +52,8 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:minWidth="20dp">
 
         <TextView
             android:layout_width="fill_parent"
@@ -66,38 +67,38 @@
             android:textStyle="bold" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
+            style="@style/btnStyleGreen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button_save"
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="32dp"
-            android:background="@drawable/button_save_for_later"
-            android:longClickable="false" />
+            android:longClickable="false"
+            android:text="Save for later" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
+            style="@style/btnStyleYellow"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button_healthy_snack"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/button_save"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/button_healthy" />
+            android:text="Healthy Snack" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
+            style="@style/btnStyleOrange"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button_unhealthy_snack"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/button_healthy_snack"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/button_non_healthy" />
+            android:text="Unhealthy Snack" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
+            style="@style/btnStyleBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/show_another_image"
