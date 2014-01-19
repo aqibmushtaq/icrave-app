@@ -1,8 +1,10 @@
-package com.aqib.icrave;
+package com.aqib.icrave.controller;
 
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.aqib.icrave.R;
 
 public class RootActivity extends ActionBarActivity {
 

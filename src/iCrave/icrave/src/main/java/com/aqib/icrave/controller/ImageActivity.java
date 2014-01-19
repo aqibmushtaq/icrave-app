@@ -1,9 +1,11 @@
-package com.aqib.icrave;
+package com.aqib.icrave.controller;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+
+import com.aqib.icrave.R;
 
 public class ImageActivity extends ActionBarActivity {
 

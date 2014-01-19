@@ -1,6 +1,8 @@
-package com.aqib.icrave;
+package com.aqib.icrave.controller;
 
 import android.os.Bundle;
+
+import com.aqib.icrave.R;
 
 public class ResultActivity extends RootActivity {
 

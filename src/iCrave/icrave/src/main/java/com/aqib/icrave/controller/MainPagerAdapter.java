@@ -1,4 +1,4 @@
-package com.aqib.icrave;
+package com.aqib.icrave.controller;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
