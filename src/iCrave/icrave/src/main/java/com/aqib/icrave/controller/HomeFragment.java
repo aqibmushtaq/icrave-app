@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aqib.icrave.R;
+import com.aqib.icrave.model.UserActionsDataSource;
+
+import java.sql.SQLException;
 
 /**
  * Home fragment
@@ -28,6 +31,19 @@ public class HomeFragment extends Fragment {
         rootView.findViewById(R.id.icrave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // create a new user action
+                UserActionsDataSource userActionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                try {
+                    userActionsDS.open();
+                } catch (SQLException e) {
+                    Log.e("HomeFragment", e.toString());
+                    return;
+                }
+                long id = userActionsDS.createUserAction();
+                userActionsDS.close();
+                Log.d("HomeFragment", String.format("Created new user action, id = %s", id));
+
+                // move on to image activity
                 startImageActivity();
             }
         });
