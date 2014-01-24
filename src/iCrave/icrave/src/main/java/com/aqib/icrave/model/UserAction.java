@@ -13,27 +13,31 @@ public class UserAction {
     public static final String COLUMN_NAME_CREATED_TIME = "created_time";
     public static final String COLUMN_NAME_UNDO_TIME = "undo_time";
     public static final String COLUMN_NAME_ACTIVE = "active";
+    public static final String COLUMN_NAME_SYNCHRONISED = "synchronised";
 
-    public static final String CREATE_USER_ACTION_HISTORY_TABLE = MessageFormat.format(
-            "CREATE TABLE {0} (" +
+    public static final String CREATE_USER_ACTION_TABLE = MessageFormat.format(
+            "CREATE TABLE IF NOT EXISTS {0} (" +
                     "{1} INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "{2} TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "{3} TIMESTAMP, " +
-                    "{4} BOOLEAN DEFAULT TRUE " +
+                    "{4} BOOLEAN DEFAULT TRUE, " +
+                    "{5} BOOLEAN DEFAULT FALSE" +
                     ")",
-            TABLE_NAME, COLUMN_NAME_ID, COLUMN_NAME_CREATED_TIME, COLUMN_NAME_UNDO_TIME, COLUMN_NAME_ACTIVE
+            TABLE_NAME, COLUMN_NAME_ID, COLUMN_NAME_CREATED_TIME, COLUMN_NAME_UNDO_TIME, COLUMN_NAME_ACTIVE, COLUMN_NAME_SYNCHRONISED
     );
 
     private int id;
     private Date createdTime;
     private Date undoTime;
     private boolean active;
+    private boolean synchronised;
 
-    public UserAction(int id, Date createdTime, Date undoTime, boolean active) {
+    public UserAction(int id, Date createdTime, Date undoTime, boolean active, boolean synchronised) {
         this.id = id;
         this.createdTime = createdTime;
         this.undoTime = undoTime;
         this.active = active;
+        this.synchronised = synchronised;
     }
 
     public int getId() {
@@ -68,4 +72,11 @@ public class UserAction {
         this.active = active;
     }
 
+    public boolean isSynchronised() {
+        return synchronised;
+    }
+
+    public void setSynchronised(boolean synchronised) {
+        this.synchronised = synchronised;
+    }
 }

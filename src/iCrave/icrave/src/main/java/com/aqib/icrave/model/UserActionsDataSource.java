@@ -2,6 +2,7 @@ package com.aqib.icrave.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class UserActionsDataSource {
     private DatabaseHandler dbHandler;
 
     public UserActionsDataSource(Context context) {
-        dbHandler = new DatabaseHandler(context);
+        dbHandler = DatabaseHandler.getDatabaseHandlder(context);
     }
 
     /**
@@ -41,6 +42,18 @@ public class UserActionsDataSource {
      */
     public long createUserAction() {
         return db.insert(UserAction.TABLE_NAME, UserAction.COLUMN_NAME_UNDO_TIME, new ContentValues());
+    }
+
+    /**
+     * Get the last user action ID
+     *
+     * @return ID as long
+     */
+    public long getLastId() {
+        Cursor c = db.query(UserAction.TABLE_NAME, new String[]{UserAction.COLUMN_NAME_ID}, null, null, null, null, String.format("%s DESC", UserAction.COLUMN_NAME_ID), "1");
+        c.moveToFirst();
+
+        return c.getLong(0);
     }
 
 }

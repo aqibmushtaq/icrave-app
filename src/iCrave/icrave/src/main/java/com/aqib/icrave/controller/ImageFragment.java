@@ -1,5 +1,6 @@
 package com.aqib.icrave.controller;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.aqib.icrave.R;
+import com.aqib.icrave.model.Image;
+import com.aqib.icrave.model.ImagesDataSource;
+import com.aqib.icrave.model.UserActionImagesDataSource;
+
+import java.sql.SQLException;
 
 public class ImageFragment extends Fragment {
 
@@ -27,10 +33,37 @@ public class ImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_image, container, false);
 
-        ((TextView) rootView.findViewById(R.id.imageDesc)).setText("Some image description here");
+        //get the last image that was shown to the user
+        UserActionImagesDataSource userActionImagesDS = new UserActionImagesDataSource(getActivity().getApplicationContext());
+        ImagesDataSource imagesDS = new ImagesDataSource(getActivity().getApplicationContext());
+        try {
+            userActionImagesDS.open();
+            imagesDS.open();
+        } catch (SQLException e) {
+            Log.e("ImageFragment", e.toString());
+            return null;
+        }
+        long lastImageId = userActionImagesDS.getLastImageId();
+        Log.i("ImageFragment", String.format("Last image ID: %s", lastImageId));
+
+        //get the next image ID
+        long totalImages = imagesDS.getRowCount();
+        long nextImageId = (lastImageId + 1) % totalImages;
+        final Image image = imagesDS.getImageById(nextImageId);
+        String imageTitle = image.getTitle();
+        Log.i("ImageFragment", String.format("Next image ID: %s", nextImageId));
+        Log.i("ImageFragment", String.format("Next image title: %s", imageTitle));
+
+        //close DB connections
+        userActionImagesDS.close();
+        imagesDS.close();
+
+        //Countdown UI components
+        ((TextView) rootView.findViewById(R.id.imageDesc)).setText(imageTitle);
         final ProgressBar countdownBar = (ProgressBar) rootView.findViewById(R.id.countdown);
         final TextView timeRemaining = (TextView) rootView.findViewById(R.id.timeRemaining);
 
+        //Countdown UI handler
         final Handler uiHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -47,6 +80,7 @@ public class ImageFragment extends Fragment {
             }
         };
 
+        //Countdown thread
         task = new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
                 while (progress++ < 100) {
@@ -78,7 +112,7 @@ public class ImageFragment extends Fragment {
                     }
                 }
 
-                getActivity().setResult(HomeFragment.RESULT_OK);
+                getActivity().setResult(HomeFragment.RESULT_OK, new Intent().putExtra(HomeFragment.IMAGE_SERVER_ID, image.getServerId()));
                 getActivity().finish();
                 cancel(true);
                 return null;

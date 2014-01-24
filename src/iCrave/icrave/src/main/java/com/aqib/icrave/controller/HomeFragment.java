@@ -19,7 +19,9 @@ import java.sql.SQLException;
 public class HomeFragment extends Fragment {
 
     public static final int RESULT_OK = 1;
-    public static final int RESULT_CANCEL = 1;
+    public static final int RESULT_CANCEL = 2;
+
+    public static final String IMAGE_SERVER_ID = "image_server_id";
 
     private static final int SHOW_IMAGE = 0;
     private static final int GET_CRAVING_RESULT = 1;
@@ -32,16 +34,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // create a new user action
-                UserActionsDataSource userActionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
                 try {
+                    UserActionsDataSource userActionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
                     userActionsDS.open();
+                    long id = userActionsDS.createUserAction();
+                    userActionsDS.close();
+                    Log.d("HomeFragment", String.format("Created new user action, id = %s", id));
                 } catch (SQLException e) {
                     Log.e("HomeFragment", e.toString());
                     return;
                 }
-                long id = userActionsDS.createUserAction();
-                userActionsDS.close();
-                Log.d("HomeFragment", String.format("Created new user action, id = %s", id));
 
                 // move on to image activity
                 startImageActivity();
@@ -60,13 +62,17 @@ public class HomeFragment extends Fragment {
         if (requestCode == SHOW_IMAGE) {
             Log.d("HomeFragment", "Result: " + resultCode);
             if (resultCode == RESULT_OK) {
-                showCravingOptions();
+                //get the image that was shown and show the craving options
+                long imageServerId = -1;
+                if (data != null)
+                    imageServerId = data.getLongExtra(IMAGE_SERVER_ID, -1);
+                showCravingOptions(imageServerId);
             }
         }
     }
 
-    private void showCravingOptions() {
-        startActivityForResult(new Intent(getActivity(), ResultActivity.class), GET_CRAVING_RESULT);
+    private void showCravingOptions(long imageServerId) {
+        startActivityForResult(new Intent(getActivity(), ResultActivity.class).putExtra(IMAGE_SERVER_ID, imageServerId), GET_CRAVING_RESULT);
     }
 
 }
