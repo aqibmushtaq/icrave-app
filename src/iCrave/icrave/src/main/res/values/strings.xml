@@ -26,4 +26,6 @@
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="alert_dialog_are_you_sure">Are you sure?</string>
     <string name="title_activity_consent">Consent</string>
+    <string name="title_activity_nutrition">Nutrition</string>
+
 </resources>

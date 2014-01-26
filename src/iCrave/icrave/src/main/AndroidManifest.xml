@@ -37,6 +37,10 @@
             android:name="com.aqib.icrave.controller.ConsentActivity"
             android:label="@string/title_activity_consent" >
         </activity>
+        <activity
+            android:name="com.aqib.icrave.controller.NutritionActivity"
+            android:label="@string/title_activity_nutrition" >
+        </activity>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ public class RootActivity extends ActionBarActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_nutrition:
+                startActivity(new Intent(this, NutritionActivity.class));
                 return true;
             case R.id.action_consent:
                 startActivity(new Intent(this, ConsentActivity.class));
