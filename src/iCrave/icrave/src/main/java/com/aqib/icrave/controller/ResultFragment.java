@@ -85,7 +85,10 @@ public class ResultFragment extends Fragment {
                     }
 
                     //return to home screen
-                    getActivity().setResult(HomeFragment.RESULT_OK);
+                    if (view.getId() == R.id.button_another_image)
+                        getActivity().setResult(HomeFragment.RESULT_VIEW_ANOTHER);
+                    else
+                        getActivity().setResult(HomeFragment.RESULT_OK);
                     getActivity().finish();
                 }
             }

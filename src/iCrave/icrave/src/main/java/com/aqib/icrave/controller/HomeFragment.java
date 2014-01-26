@@ -20,6 +20,7 @@ public class HomeFragment extends Fragment {
 
     public static final int RESULT_OK = 1;
     public static final int RESULT_CANCEL = 2;
+    public static final int RESULT_VIEW_ANOTHER = 3;
 
     public static final String IMAGE_SERVER_ID = "image_server_id";
 
@@ -67,6 +68,11 @@ public class HomeFragment extends Fragment {
                 if (data != null)
                     imageServerId = data.getLongExtra(IMAGE_SERVER_ID, -1);
                 showCravingOptions(imageServerId);
+            }
+        } else if (requestCode == GET_CRAVING_RESULT) {
+            //check if the user wants to view another image
+            if (resultCode == RESULT_VIEW_ANOTHER) {
+                startActivityForResult(new Intent(getActivity(), ImageActivity.class), SHOW_IMAGE);
             }
         }
     }
