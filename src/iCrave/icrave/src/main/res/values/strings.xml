@@ -5,8 +5,7 @@
     <string name="action_nutrition">Nutrition</string>
     <string name="action_consent">Consent</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_image">ImageActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_image">Image</string>
     <string name="title_activity_root">RootActivity</string>
     <string name="image_info">"Imagine the description for the 10 seconds"</string>
     <string name="info">Info</string>
@@ -26,5 +25,5 @@
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="alert_dialog_are_you_sure">Are you sure?</string>
-
+    <string name="title_activity_consent">Consent</string>
 </resources>

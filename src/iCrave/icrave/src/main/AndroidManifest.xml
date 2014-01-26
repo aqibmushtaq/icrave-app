@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aqib.icrave">
+    package="com.aqib.icrave" >
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".controller.MainActivity"
-            android:label="@string/app_name">
+            android:name="com.aqib.icrave.controller.MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,22 +17,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.ImageActivity"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".controller.RootActivity"
+            android:name="com.aqib.icrave.controller.ImageActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".controller.ResultActivity"
+            android:name="com.aqib.icrave.controller.RootActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.aqib.icrave.controller.ResultActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".controller.RootActivity">
+            android:parentActivityName="com.aqib.icrave.controller.RootActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="RootActivity" />
         </activity>
-        <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+        <uses-permission android:name="android.permission.INTERNET" />
+
+        <activity
+            android:name="com.aqib.icrave.controller.ConsentActivity"
+            android:label="@string/title_activity_consent" >
+        </activity>
     </application>
-
-
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.aqib.icrave.controller;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class RootActivity extends ActionBarActivity {
             case R.id.action_nutrition:
                 return true;
             case R.id.action_consent:
+                startActivity(new Intent(this, ConsentActivity.class));
                 return true;
             case R.id.action_settings:
                 return true;
