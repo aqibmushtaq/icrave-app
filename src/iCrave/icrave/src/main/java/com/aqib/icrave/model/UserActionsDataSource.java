@@ -44,7 +44,9 @@ public class UserActionsDataSource {
      * @return _id of the new User Action
      */
     public long createUserAction() {
-        return db.insert(UserAction.TABLE_NAME, UserAction.COLUMN_NAME_UNDO_TIME, new ContentValues());
+        ContentValues values = new ContentValues();
+        values.put(UserAction.COLUMN_NAME_CREATED_TIME, new Date().getTime());
+        return db.insert(UserAction.TABLE_NAME, null, values);
     }
 
     /**
