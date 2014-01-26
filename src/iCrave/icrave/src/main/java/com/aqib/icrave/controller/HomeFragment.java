@@ -1,5 +1,7 @@
 package com.aqib.icrave.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +33,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //set on click listener to iCrave button
         rootView.findViewById(R.id.icrave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +54,47 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //set on click listener to undo button
+        rootView.findViewById(R.id.undo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //show confirmation dialog
+                showUndoConfirmation();
+            }
+        });
+
         return rootView;
+    }
+
+    private void showUndoConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.image_info)
+                .setTitle(R.string.info);
+
+        builder.setPositiveButton(getString(R.string.alert_dialog_ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //remove from database
+                UserActionsDataSource actionDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                try {
+                    actionDS.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                long actionId = actionDS.getLastId();
+                actionDS.deleteById(actionId);
+                actionDS.close();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.alert_dialog_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void startImageActivity() {

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.Date;
 
 /**
  * Created by aqib on 22/01/14.
@@ -78,5 +79,13 @@ public class UserActionsDataSource {
         );
         Log.d("UserActionDataSource", String.format("queryAllHistory: %s", query));
         return db.rawQuery(query, null);
+    }
+
+    public boolean deleteById (long id) {
+        ContentValues values = new ContentValues();
+        values.put(UserAction.COLUMN_NAME_ACTIVE, "FALSE");
+        values.put(UserAction.COLUMN_NAME_UNDO_TIME, new Date().getTime());
+        values.put(UserAction.COLUMN_NAME_SYNCHRONISED, "FALSE");
+        return db.update(UserAction.TABLE_NAME, values, String.format("%s=?", UserAction.COLUMN_NAME_ID), new String[]{id + ""}) > 0 ? true : false;
     }
 }
