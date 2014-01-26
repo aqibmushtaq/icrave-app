@@ -30,8 +30,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="RootActivity" />
         </activity>
+        <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
 
 </manifest>
