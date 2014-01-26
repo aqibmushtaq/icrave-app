@@ -47,6 +47,23 @@ public class HistoryFragment extends ListFragment {
             }
         });
 
+        //set on click listener to refresh button
+        rootView.findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserActionsDataSource actionDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                try {
+                    actionDS.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                resetListView(actionDS);
+            }
+        });
+
+
+
         return rootView;
     }
 

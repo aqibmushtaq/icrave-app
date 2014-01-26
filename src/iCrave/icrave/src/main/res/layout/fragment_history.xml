@@ -6,21 +6,47 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@android:id/list"
-        android:layout_above="@+id/undo"
-        android:layout_marginBottom="2dp"/>
+        android:layout_above="@+id/linearLayout" />
 
-    <Button
-        style="@style/btnStyleBlue"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/undo"
-        android:clickable="true"
-        android:text="@string/undo_previous_activity"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refresh"
+            android:id="@+id/refresh"
+            style="@style/btnStyleBlue" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/synchronise"
+            android:id="@+id/sync"
+            style="@style/btnStyleBlue"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/undo" />
+
+        <Button
+            style="@style/btnStyleBlue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/undo"
+            android:clickable="true"
+            android:text="@string/undo_previous_activity"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </LinearLayout>
+
 
 </RelativeLayout>

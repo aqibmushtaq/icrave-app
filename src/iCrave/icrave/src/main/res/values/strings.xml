@@ -29,5 +29,7 @@
     <string name="alert_dialog_are_you_sure">Are you sure?</string>
     <string name="title_activity_consent">Consent</string>
     <string name="title_activity_nutrition">Nutrition</string>
+    <string name="refresh">Refresh</string>
+    <string name="synchronise">Synchronise</string>
 
 </resources>
