@@ -1,9 +1,12 @@
 package com.aqib.icrave.controller;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +31,53 @@ import java.util.Date;
 public class HistoryFragment extends ListFragment {
 
     private ListView listView;
+    private MyAdapter listAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
         listView = (ListView) rootView.findViewById(android.R.id.list);
+
+        //set on click listener to undo button
+        rootView.findViewById(R.id.undo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //show confirmation dialog
+                showUndoConfirmation();
+            }
+        });
+
         return rootView;
+    }
+
+    private void showUndoConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.alert_dialog_are_you_sure)
+                .setTitle(R.string.info);
+
+        builder.setPositiveButton(getString(R.string.alert_dialog_yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //remove from database
+                UserActionsDataSource actionDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                try {
+                    actionDS.open();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                long actionId = actionDS.getLastActiveId();
+                Log.d("HistoryFragment", String.format("Deleting last action ID found: %s", actionId));
+                actionDS.deleteById(actionId);
+                actionDS.close();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.alert_dialog_no), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -48,8 +92,8 @@ public class HistoryFragment extends ListFragment {
             return;
         }
 
-        MyAdapter adapter = new MyAdapter(getActivity().getApplicationContext(), R.layout.history_item, actionsDS.queryAllHistory());
-        listView.setAdapter(adapter);
+        listAdapter = new MyAdapter(getActivity().getApplicationContext(), R.layout.history_item, actionsDS.queryAllHistory());
+        listView.setAdapter(listAdapter);
     }
 
 

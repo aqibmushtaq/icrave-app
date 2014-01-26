@@ -7,6 +7,20 @@
 
     <ListView
         android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@android:id/list"
+        android:layout_above="@+id/undo"
+        android:layout_marginBottom="2dp"/>
+
+    <Button
+        style="@style/btnStyleBlue"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@android:id/list" />
+        android:id="@+id/undo"
+        android:clickable="true"
+        android:text="@string/undo_previous_activity"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
 </RelativeLayout>

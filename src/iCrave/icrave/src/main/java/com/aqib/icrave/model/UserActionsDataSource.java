@@ -59,6 +59,32 @@ public class UserActionsDataSource {
         return c.getLong(0);
     }
 
+    /**
+     * Get the last *active* user action ID which has a UserActionImage
+     *
+     * @return ID as long
+     */
+    public long getLastActiveId() {
+        Cursor c = db.rawQuery(MessageFormat.format(
+            "SELECT {1}.{0} " +
+                    "FROM {1} " +
+                    "INNER JOIN {2} " +
+                    "ON {1}.{0} = {2}.{3} " +
+                    "WHERE {1}.{5} = \"TRUE\" " +
+                    "ORDER BY {1}.{4} DESC " +
+                    "LIMIT 1;",
+                UserAction.COLUMN_NAME_ID,
+                UserAction.TABLE_NAME,
+                UserActionImage.TABLE_NAME,
+                UserActionImage.COLUMN_NAME_USER_ACTION_ID,
+                UserAction.COLUMN_NAME_CREATED_TIME,
+                UserAction.COLUMN_NAME_ACTIVE
+        ), null);
+        c.moveToFirst();
+
+        return c.getLong(0);
+    }
+
     public Cursor queryAllHistory () {
         String query = MessageFormat.format(
                 "SELECT {3}.{0}, {4}.{1}, {3}.{2}, {4}.{6} " +

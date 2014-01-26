@@ -23,6 +23,8 @@
     <string name="rating_perfect_image">Perfect image</string>
     <string name="error_no_rating">Please rate the image before continuing</string>
     <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_yes">Yes</string>
+    <string name="alert_dialog_no">No</string>
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="alert_dialog_are_you_sure">Are you sure?</string>
     <string name="title_activity_consent">Consent</string>
