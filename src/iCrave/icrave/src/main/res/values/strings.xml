@@ -25,5 +25,6 @@
     <string name="error_no_rating">Please rate the image before continuing</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_are_you_sure">Are you sure?</string>
 
 </resources>

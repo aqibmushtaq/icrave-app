@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     private void showUndoConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.image_info)
-                .setTitle(R.string.info);
+                .setTitle(R.string.alert_dialog_are_you_sure);
 
         builder.setPositiveButton(getString(R.string.alert_dialog_ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
