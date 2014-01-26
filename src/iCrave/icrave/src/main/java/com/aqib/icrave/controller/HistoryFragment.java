@@ -68,6 +68,10 @@ public class HistoryFragment extends ListFragment {
                 long actionId = actionDS.getLastActiveId();
                 Log.d("HistoryFragment", String.format("Deleting last action ID found: %s", actionId));
                 actionDS.deleteById(actionId);
+
+                //refresh the list view to reflect the change
+                resetListView(actionDS);
+
                 actionDS.close();
             }
         });
@@ -78,6 +82,11 @@ public class HistoryFragment extends ListFragment {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void resetListView(UserActionsDataSource actionDS) {
+        listAdapter = new MyAdapter(getActivity().getApplicationContext(), R.layout.history_item, actionDS.queryAllHistory());
+        listView.setAdapter(listAdapter);
     }
 
     @Override
@@ -92,8 +101,7 @@ public class HistoryFragment extends ListFragment {
             return;
         }
 
-        listAdapter = new MyAdapter(getActivity().getApplicationContext(), R.layout.history_item, actionsDS.queryAllHistory());
-        listView.setAdapter(listAdapter);
+        resetListView(actionsDS);
     }
 
 
