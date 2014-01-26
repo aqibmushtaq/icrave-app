@@ -28,13 +28,13 @@ public class ImageActivity extends ActionBarActivity {
         builder.setMessage(R.string.image_info)
                 .setTitle(R.string.info);
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.alert_dialog_ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 showImageFragment(savedInstanceState);
             }
         });
 
-        builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.alert_dialog_cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 setResult(HomeFragment.RESULT_CANCEL);
                 finish();

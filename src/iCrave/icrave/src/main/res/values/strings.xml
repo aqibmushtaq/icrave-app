@@ -22,8 +22,8 @@
     <string name="seconds">seconds remaining</string>
     <string name="rating_no_image">No image</string>
     <string name="rating_perfect_image">Perfect image</string>
-
-    <!-- errors -->
     <string name="error_no_rating">Please rate the image before continuing</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancel</string>
 
 </resources>
