@@ -6,6 +6,14 @@
     android:layout_height="20pt"
     android:padding="5pt">
 
+    <com.aqib.icrave.view.StatusCircle
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sync_status"
+        android:background="@drawable/icon_sync_status"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="5dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +29,7 @@
         android:text="Date"
         android:id="@+id/history_item_date"
         android:gravity="right"
-        android:textColor="@android:color/secondary_text_dark" />
+        android:textColor="@android:color/secondary_text_dark"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>

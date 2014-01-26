@@ -16,6 +16,7 @@ import com.aqib.icrave.model.CravingDecision;
 import com.aqib.icrave.model.UserAction;
 import com.aqib.icrave.model.UserActionImage;
 import com.aqib.icrave.model.UserActionsDataSource;
+import com.aqib.icrave.view.StatusCircle;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -61,13 +62,18 @@ public class HistoryFragment extends ListFragment {
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            TextView decision = (TextView) view.findViewById(R.id.history_item_decision);
-            decision.setText(CravingDecision.getStringValue(cursor.getInt(cursor.getColumnIndex(UserActionImage.COLUMN_NAME_EATING_DECISION_ID))));
+            TextView decisionView = (TextView) view.findViewById(R.id.history_item_decision);
+            String decision = CravingDecision.getStringValue(cursor.getInt(cursor.getColumnIndex(UserActionImage.COLUMN_NAME_EATING_DECISION_ID)));
+            decisionView.setText(decision);
 
-            TextView date = (TextView) view.findViewById(R.id.history_item_date);
+            TextView dateView = (TextView) view.findViewById(R.id.history_item_date);
             Date createdDate = new Date(cursor.getLong(cursor.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME)));
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yy");
-            date.setText(sdf.format(createdDate));
+            dateView.setText(sdf.format(createdDate));
+
+            boolean isSynced = cursor.getString(cursor.getColumnIndex(UserAction.COLUMN_NAME_SYNCHRONISED)).equals("TRUE") ? true : false;
+            StatusCircle syncStatusView = (StatusCircle) view.findViewById(R.id.sync_status);
+            syncStatusView.setSynced(isSynced);
         }
     }
 }
