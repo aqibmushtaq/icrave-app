@@ -112,7 +112,7 @@ public class ImageFragment extends Fragment {
                     }
                 }
 
-                getActivity().setResult(HomeFragment.RESULT_OK, new Intent().putExtra(HomeFragment.IMAGE_SERVER_ID, image.getServerId()));
+                getActivity().setResult(ICraveOptionsActivity.RESULT_OK, new Intent().putExtra(ICraveOptionsActivity.IMAGE_SERVER_ID, image.getServerId()));
                 getActivity().finish();
                 cancel(true);
                 return null;

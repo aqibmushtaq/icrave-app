@@ -31,5 +31,7 @@
     <string name="title_activity_nutrition">Nutrition</string>
     <string name="refresh">Refresh</string>
     <string name="synchronise">Synchronise</string>
+    <string name="visualise">Visualise</string>
+    <string name="title_activity_icrave_options">iCrave Options</string>
 
 </resources>

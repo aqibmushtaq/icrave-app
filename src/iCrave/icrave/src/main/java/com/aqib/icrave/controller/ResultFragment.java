@@ -26,7 +26,7 @@ public class ResultFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_result, container, false);
 
         //get image id
-        final long imageServerId = getActivity().getIntent().getLongExtra(HomeFragment.IMAGE_SERVER_ID, -1);
+        final long imageServerId = getActivity().getIntent().getLongExtra(ICraveOptionsActivity.IMAGE_SERVER_ID, -1);
 
         //get rating component
         final RatingBar ratingBar = (RatingBar) rootView.findViewById(R.id.rating);
@@ -86,9 +86,9 @@ public class ResultFragment extends Fragment {
 
                     //return to home screen
                     if (view.getId() == R.id.button_another_image)
-                        getActivity().setResult(HomeFragment.RESULT_VIEW_ANOTHER);
+                        getActivity().setResult(ICraveOptionsActivity.RESULT_VIEW_ANOTHER);
                     else
-                        getActivity().setResult(HomeFragment.RESULT_OK);
+                        getActivity().setResult(ICraveOptionsActivity.RESULT_OK);
                     getActivity().finish();
                 }
             }

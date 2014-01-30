@@ -36,7 +36,7 @@ public class ImageActivity extends ActionBarActivity {
 
         builder.setNegativeButton(getString(R.string.alert_dialog_cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                setResult(HomeFragment.RESULT_CANCEL);
+                setResult(ICraveOptionsActivity.RESULT_CANCEL);
                 finish();
             }
         });
@@ -44,7 +44,7 @@ public class ImageActivity extends ActionBarActivity {
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                setResult(HomeFragment.RESULT_CANCEL);
+                setResult(ICraveOptionsActivity.RESULT_CANCEL);
                 finish();
             }
         });
