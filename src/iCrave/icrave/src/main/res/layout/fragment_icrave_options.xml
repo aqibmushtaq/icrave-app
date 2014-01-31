@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/visualise"
-        android:id="@+id/button_visualise"
-        style="@style/btnStyleBlue" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:id="@+id/button_save"
-        style="@style/btnStyleGreen" />
+        <Button
+            android:id="@+id/button_visualise"
+            style="@style/btnStyleBlue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visualise" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/healthy_snack"
-        android:id="@+id/button_healthy_snack"
-        style="@style/btnStyleYellow" />
+        <Button
+            android:id="@+id/button_save"
+            style="@style/btnStyleGreen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_marginTop="30dp" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/unhealthy_snack"
-        android:id="@+id/button_unhealthy_snack"
-        style="@style/btnStyleOrange" />
-</LinearLayout>
+        <Button
+            android:id="@+id/button_healthy_snack"
+            style="@style/btnStyleYellow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/healthy_snack"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/button_unhealthy_snack"
+            style="@style/btnStyleOrange"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/unhealthy_snack"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+</RelativeLayout>
