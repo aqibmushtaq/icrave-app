@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aqib.icrave.R;
 import com.aqib.icrave.model.CravingDecision;
@@ -21,9 +23,14 @@ import com.aqib.icrave.model.UserActionImage;
 import com.aqib.icrave.model.UserActionsDataSource;
 import com.aqib.icrave.view.StatusCircle;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * History fragment which shows the user's activity history.
@@ -32,6 +39,7 @@ public class HistoryFragment extends ListFragment {
 
     private ListView listView;
     private MyAdapter listAdapter;
+    private Toast toastSyncResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,8 +71,95 @@ public class HistoryFragment extends ListFragment {
         });
 
 
+        toastSyncResult = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_SHORT);
+        //set on click listener to sync button
+        rootView.findViewById(R.id.sync).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                syncHistory();
+            }
+        });
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+        try {
+            actionsDS.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        resetListView(actionsDS);
+    }
+
+    private void syncHistory() {
+        AsyncTask<String, Integer, List<UserAction>> syncUserActions = new AsyncTask<String, Integer, List<UserAction>>() {
+            @Override
+            protected List<UserAction> doInBackground(String... urls) {
+                UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                try {
+                    actionsDS.open();
+                    List<UserAction> allUnsynced = actionsDS.getAllUnsynced();
+                    UserActionsDataSource.putUserActions(urls[0], allUnsynced, new ArrayList<UserActionImage>());
+                    return allUnsynced;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    showCouldNotSyncMessage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    showCouldNotSyncMessage();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    showCouldNotSyncMessage();
+                }
+
+                return null;
+            }
+        };
+        String address = getString(R.string.server_address);
+        String endpoint = getString(R.string.server_rest_url_user_action_create);
+        String apiKeyParam = getString(R.string.server_rest_param_api_key);
+        String apiKey = getString(R.string.server_api_key);
+        syncUserActions.execute(String.format("%s%s?%s=%s", address, endpoint, apiKeyParam, apiKey));
+
+
+        try {
+            List<UserAction> results = syncUserActions.get();
+            if (results.size() == 0) {
+                toastSyncResult.setText(getString(R.string.nothing_to_sync_msg));
+                toastSyncResult.show();
+                return;
+            }
+
+            UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+            actionsDS.open();
+            int updated = 0;
+            for (UserAction result : results)
+                if (result.isSynchronised())
+                    updated += actionsDS.updateSync(result) ? 1 : 0;
+
+            resetListView(actionsDS);
+            toastSyncResult.setText(getString(R.string.sync_result_msg, updated, results.size()));
+            toastSyncResult.show();
+            actionsDS.close();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showCouldNotSyncMessage() {
+        toastSyncResult.setText(R.string.could_not_sync_msg);
+        toastSyncResult.show();
     }
 
     private void showUndoConfirmation() {
@@ -106,22 +201,6 @@ public class HistoryFragment extends ListFragment {
         listView.setAdapter(listAdapter);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
-        try {
-            actionsDS.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        resetListView(actionsDS);
-    }
-
-
     private class MyAdapter extends ResourceCursorAdapter {
 
         @SuppressWarnings("deprecation")
@@ -140,7 +219,7 @@ public class HistoryFragment extends ListFragment {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yy");
             dateView.setText(sdf.format(createdDate));
 
-            boolean isSynced = cursor.getString(cursor.getColumnIndex(UserAction.COLUMN_NAME_SYNCHRONISED)).equals("TRUE") ? true : false;
+            boolean isSynced = cursor.getString(cursor.getColumnIndex(UserAction.COLUMN_NAME_SYNCHRONISED)).equals("1");
             StatusCircle syncStatusView = (StatusCircle) view.findViewById(R.id.sync_status);
             syncStatusView.setSynced(isSynced);
         }

@@ -14,6 +14,7 @@ public class UserAction {
     public static final String COLUMN_NAME_UNDO_TIME = "undo_time";
     public static final String COLUMN_NAME_ACTIVE = "active";
     public static final String COLUMN_NAME_SYNCHRONISED = "synchronised";
+    public static final String[] ALL_COLUMNS = new String[]{COLUMN_NAME_ID, COLUMN_NAME_CREATED_TIME, COLUMN_NAME_UNDO_TIME, COLUMN_NAME_ACTIVE, COLUMN_NAME_SYNCHRONISED};
 
     public static final String CREATE_USER_ACTION_TABLE = MessageFormat.format(
             "CREATE TABLE IF NOT EXISTS {0} (" +
@@ -32,7 +33,8 @@ public class UserAction {
     private boolean active;
     private boolean synchronised;
 
-    public UserAction() { }
+    public UserAction() {
+    }
 
     public int getId() {
         return id;

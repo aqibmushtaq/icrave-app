@@ -33,5 +33,8 @@
     <string name="synchronise">Synchronise</string>
     <string name="visualise">Visualise</string>
     <string name="title_activity_icrave_options">iCrave Options</string>
+    <string name="sync_result_msg">Successfully synced %1$s of %2$s</string>
+    <string name="could_not_sync_msg">Could not sync at this time, please try later.</string>
+    <string name="nothing_to_sync_msg">Nothing to sync</string>
 
 </resources>
