@@ -32,6 +32,8 @@ public class UserAction {
     private boolean active;
     private boolean synchronised;
 
+    public UserAction() { }
+
     public UserAction(int id, Date createdTime, Date undoTime, boolean active, boolean synchronised) {
         this.id = id;
         this.createdTime = createdTime;
