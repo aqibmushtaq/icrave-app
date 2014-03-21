@@ -18,6 +18,8 @@ public class UserActionImage {
     public static final String COLUMN_NAME_RATING = "rating";
     public static final String COLUMN_NAME_EATING_DECISION_ID = "eating_decision_id";
     public static final String COLUMN_NAME_SYNCHRONISED = "synchronised";
+    public static final String[] ALL_COLUMNS = new String[]{COLUMN_NAME_ID, COLUMN_NAME_USER_ACTION_ID, COLUMN_NAME_CREATED_TIME, COLUMN_NAME_SERVER_IMAGE_ID, COLUMN_NAME_RATING, COLUMN_NAME_EATING_DECISION_ID, COLUMN_NAME_SYNCHRONISED};
+
 
     public static final String CREATE_USER_ACTION_IMAGE_TABLE = MessageFormat.format(
             "CREATE TABLE IF NOT EXISTS {0} (" +
@@ -39,6 +41,8 @@ public class UserActionImage {
     private int rating;
     private long eatingDecisionId;
     private boolean synchronised;
+
+    public UserActionImage() {}
 
     public UserActionImage(long userActionId, Date createdTime, long serverImageId, int rating, long eatingDecisionId) {
         this.userActionId = userActionId;

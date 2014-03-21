@@ -94,11 +94,25 @@ public class ICraveOptionsActivity extends RootActivity {
 
         @Override
         public void onClick(View view) {
-            startActivityForResult(new Intent(ICraveOptionsActivity.this, ImageActivity.class), SHOW_IMAGE);
+            UserActionsDataSource userActionsDS = new UserActionsDataSource(getApplicationContext());
+            try {
+                userActionsDS.open();
+                userActionsDS.createUserAction();
+                userActionsDS.close();
+                startActivityForResult(new Intent(ICraveOptionsActivity.this, ImageActivity.class), SHOW_IMAGE);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                setResult(RESULT_CANCEL);
+                finish();
+            }
         }
     }
 
     private class SaveUserActionListener implements View.OnClickListener {
+
+        public SaveUserActionListener() {
+            super();
+        }
 
         @Override
         public void onClick(View view) {

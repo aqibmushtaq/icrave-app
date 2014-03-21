@@ -3,9 +3,14 @@ package com.aqib.icrave.model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by aqib on 22/01/14.
@@ -75,4 +80,22 @@ public class UserActionImagesDataSource {
         return c.getLong(0);
     }
 
+    public List<UserActionImage> getAllUnsynced() throws ParseException {
+        List<UserActionImage> images = new ArrayList<UserActionImage>();
+
+        Cursor c = db.query(UserActionImage.TABLE_NAME, UserActionImage.ALL_COLUMNS, String.format("%s=?", UserActionImage.COLUMN_NAME_SYNCHRONISED), new String[]{"FALSE"}, null, null, null);
+        while (c.moveToNext()) {
+            UserActionImage image = new UserActionImage();
+            image.setId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_ID)));
+            image.setUserActionId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_USER_ACTION_ID)));
+            image.setCreatedTime(new Date(c.getLong(c.getColumnIndex(UserActionImage.COLUMN_NAME_CREATED_TIME))));
+            image.setServerImageId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_SERVER_IMAGE_ID)));
+            image.setRating(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_RATING)));
+            image.setEatingDecisionId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_EATING_DECISION_ID)));
+            images.add(image);
+        }
+
+        Log.d("UserActionDataSource/getAllUnsynced", String.format("Return %d user actions", images.size()));
+        return images;
+    }
 }

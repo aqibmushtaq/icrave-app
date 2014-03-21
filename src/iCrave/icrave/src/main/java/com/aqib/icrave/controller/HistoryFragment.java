@@ -20,6 +20,7 @@ import com.aqib.icrave.R;
 import com.aqib.icrave.model.CravingDecision;
 import com.aqib.icrave.model.UserAction;
 import com.aqib.icrave.model.UserActionImage;
+import com.aqib.icrave.model.UserActionImagesDataSource;
 import com.aqib.icrave.model.UserActionsDataSource;
 import com.aqib.icrave.view.StatusCircle;
 
@@ -103,11 +104,14 @@ public class HistoryFragment extends ListFragment {
             @Override
             protected List<UserAction> doInBackground(String... urls) {
                 UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                UserActionImagesDataSource actionImagesDS = new UserActionImagesDataSource(getActivity().getApplicationContext());
                 try {
                     actionsDS.open();
-                    List<UserAction> allUnsynced = actionsDS.getAllUnsynced();
-                    UserActionsDataSource.putUserActions(urls[0], allUnsynced, new ArrayList<UserActionImage>());
-                    return allUnsynced;
+                    actionImagesDS.open();
+                    List<UserAction> allUnsyncedActions = actionsDS.getAllUnsynced();
+                    List<UserActionImage> allUnsyncedImages = actionImagesDS.getAllUnsynced();
+                    UserActionsDataSource.putUserActions(urls[0], allUnsyncedActions, allUnsyncedImages);
+                    return allUnsyncedActions;
                 } catch (ParseException e) {
                     e.printStackTrace();
                     showCouldNotSyncMessage();
