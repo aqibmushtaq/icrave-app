@@ -18,10 +18,12 @@
     <string name="unhealthy_snack">Unhealthy Snack</string>
     <string name="show_another_image">Show another image</string>
     <string name="undo_previous_activity">Undo previous activity</string>
+    <string name="undo">Undo</string>
     <string name="seconds">seconds remaining</string>
     <string name="rating_no_image">No image</string>
     <string name="rating_perfect_image">Perfect image</string>
     <string name="error_no_rating">Please rate the image before continuing</string>
+    <string name="error_icrave_disabled">Please wait %1$s minutes before using iCrave or Undo your previous action</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_yes">Yes</string>
     <string name="alert_dialog_no">No</string>

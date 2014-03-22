@@ -118,7 +118,7 @@ public class ImageFragment extends Fragment {
                 return null;
             }
         };
-        task.execute(null);
+        task.execute((Void[]) null);
 
         return rootView;
     }

@@ -101,6 +101,26 @@ public class UserActionsDataSource {
         return c.getLong(0);
     }
 
+    /**
+     * The the last created time of the most recent active record.
+     * @return The date if the action exists, otherwise a newly initialised date object.
+     */
+    public Date getLastCreatedTime() {
+        long lastId = getLastActiveId();
+        Cursor c = db.query(
+                UserAction.TABLE_NAME,
+                new String[] {UserAction.COLUMN_NAME_CREATED_TIME},
+                String.format("%s=?", UserAction.COLUMN_NAME_ID),
+                new String[] {String.valueOf(lastId)},
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst())
+            return new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME)));
+        return new Date();
+    }
+
     public List<UserAction> getAllUnsynced() throws ParseException {
         List<UserAction> actions = new ArrayList<UserAction>();
 
