@@ -3,6 +3,7 @@ package com.aqib.icrave.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -80,7 +81,7 @@ public class UserActionsDataSource {
      *
      * @return ID as long
      */
-    public long getLastActiveId() {
+    public long getLastActiveId() throws CursorIndexOutOfBoundsException {
         Cursor c = db.rawQuery(MessageFormat.format(
             "SELECT {1}.{0} " +
                     "FROM {1} " +
@@ -106,7 +107,13 @@ public class UserActionsDataSource {
      * @return The date if the action exists, otherwise a newly initialised date object.
      */
     public Date getLastCreatedTime() {
-        long lastId = getLastActiveId();
+        long lastId;
+        try {
+            lastId = getLastActiveId();
+        } catch (CursorIndexOutOfBoundsException ex) {
+            return new Date(0);
+        }
+
         Cursor c = db.query(
                 UserAction.TABLE_NAME,
                 new String[] {UserAction.COLUMN_NAME_CREATED_TIME},
@@ -118,7 +125,7 @@ public class UserActionsDataSource {
         );
         if (c.moveToFirst())
             return new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME)));
-        return new Date();
+        return new Date(0);
     }
 
     public List<UserAction> getAllUnsynced() throws ParseException {
