@@ -23,6 +23,8 @@ import java.util.Date;
  */
 public class HomeFragment extends Fragment {
 
+    private Fragment historyFragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -107,6 +109,25 @@ public class HomeFragment extends Fragment {
     }
 
     private void startICraveOptionsActivity() {
-        startActivity(new Intent(getActivity().getApplicationContext(), ICraveOptionsActivity.class));
+        startActivityForResult(new Intent(getActivity().getApplicationContext(), ICraveOptionsActivity.class), 0);
+    }
+
+    public void setHistoryFragment (Fragment historyFragment) {
+        this.historyFragment = historyFragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Refresh the history fragment list
+        UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+        try {
+            actionsDS.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        ((HistoryFragment)historyFragment).resetListView(actionsDS);
+        actionsDS.close();
     }
 }

@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
+    private Fragment homeFragment;
+    private Fragment historyFragment;
+
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -17,12 +20,22 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new HomeFragment();
+                if (homeFragment == null) {
+                    homeFragment = new HomeFragment();
+                    ((HomeFragment)homeFragment).setHistoryFragment(getHistoryFragment());
+                }
+                return homeFragment;
             case 1:
-                return new HistoryFragment();
-            default:
-                return new HomeFragment();
+                return getHistoryFragment();
+
         }
+        return null;
+    }
+
+    private Fragment getHistoryFragment () {
+        if (historyFragment == null)
+            historyFragment = new HistoryFragment();
+        return historyFragment;
     }
 
     @Override

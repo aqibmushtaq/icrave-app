@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -97,6 +96,7 @@ public class HistoryFragment extends ListFragment {
         }
 
         resetListView(actionsDS);
+        actionsDS.close();
     }
 
     private void syncHistory() {
@@ -199,7 +199,7 @@ public class HistoryFragment extends ListFragment {
         dialog.show();
     }
 
-    private void resetListView(UserActionsDataSource actionDS) {
+    public void resetListView(UserActionsDataSource actionDS) {
         listAdapter = new MyAdapter(getActivity().getApplicationContext(), R.layout.history_item, actionDS.queryAllHistory());
         listView.setAdapter(listAdapter);
     }
