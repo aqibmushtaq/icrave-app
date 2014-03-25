@@ -132,7 +132,6 @@ public class HistoryFragment extends ListFragment {
         String apiKey = getString(R.string.server_api_key);
         syncUserActions.execute(String.format("%s%s?%s=%s", address, endpoint, apiKeyParam, apiKey));
 
-
         try {
             List<UserAction> results = syncUserActions.get();
             if (results.size() == 0) {
