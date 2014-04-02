@@ -1,24 +1,11 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
-    }
-}
 apply plugin: 'android'
-
-repositories {
-    mavenCentral()
-    maven { url "http://maven.restlet.org" }
-}
 
 android {
     compileSdkVersion 19
     buildToolsVersion "19.0.0"
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
@@ -31,9 +18,14 @@ android {
     }
 }
 
-restletVersion = "2.1.6"
-
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile 'com.android.support:appcompat-v7:+'
     compile 'com.googlecode.json-simple:json-simple:1.1'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://maven.restlet.org" }
 }
