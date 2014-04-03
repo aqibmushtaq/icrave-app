@@ -16,14 +16,14 @@
             style="@style/btnStyleBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/visualise" />
+            android:text="@string/help_me_resist" />
 
         <Button
             android:id="@+id/button_save"
             style="@style/btnStyleGreen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save"
+            android:text="@string/save_for_later"
             android:layout_marginTop="30dp" />
 
         <Button

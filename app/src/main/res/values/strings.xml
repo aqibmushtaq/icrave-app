@@ -44,5 +44,8 @@
     <string name="healthy_snacks_colon">Healthy Snacks:</string>
     <string name="unhealthy_snacks_colon">Unhealthy Snacks:</string>
     <string name="zero">0</string>
+    <string name="help_me_resist">Help me resist</string>
+    <string name="save_for_later">Save for later</string>
+    <string name="need_another_task">Need another task</string>
 
 </resources>
