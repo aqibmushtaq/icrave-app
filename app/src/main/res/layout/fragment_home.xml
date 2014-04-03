@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/TextAppearance.AppCompat.Light.SearchResult.Title">
 
     <Button
         android:layout_width="wrap_content"
@@ -14,5 +15,110 @@
         android:background="@drawable/icrave_button1"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_cravings_label"
+                android:layout_column="2"
+                android:text="@string/total_cravings_colon"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_cravings"
+                android:layout_column="4"
+                android:text="@string/zero"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_saved_label"
+                android:layout_column="2"
+                android:text="@string/saved_cravings_colon"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_saved"
+                android:layout_column="4"
+                android:text="@string/zero"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_healthy_label"
+                android:layout_column="2"
+                android:text="@string/healthy_snacks_colon"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_healthy"
+                android:layout_column="4"
+                android:text="@string/zero"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_unhealthy_label"
+                android:layout_column="2"
+                android:text="@string/unhealthy_snacks_colon"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_unhealthy"
+                android:layout_column="4"
+                android:text="@string/zero"
+                style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:layout_marginLeft="10dp" />
+
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>

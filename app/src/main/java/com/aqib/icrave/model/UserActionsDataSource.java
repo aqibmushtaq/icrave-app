@@ -65,6 +65,40 @@ public class UserActionsDataSource {
     }
 
     /**
+     * Get the row count for all cravings (only active record)
+     * @return A row count
+     */
+    public long getActiveRowCount() {
+        return queryAllHistory().getCount();
+    }
+
+    /**
+     * Get the row count for a specific craving decision (only active record)
+     * @param cravingDecisionId The craving decision to count
+     * @return A row count
+     */
+    public long getRowCount (int cravingDecisionId) {
+        String query = MessageFormat.format(
+                "SELECT {3}.{0}, {4}.{1}, {3}.{2}, {4}.{6} " +
+                        "FROM {3} " +
+                        "INNER JOIN {4} ON {3}.{0}={4}.{5} " +
+                        "WHERE {3}.{7}=\"TRUE\" " +
+                        "AND {4}.{6} = {8}",
+                UserAction.COLUMN_NAME_ID,
+                UserActionImage.COLUMN_NAME_CREATED_TIME,
+                UserAction.COLUMN_NAME_SYNCHRONISED,
+                UserAction.TABLE_NAME,
+                UserActionImage.TABLE_NAME,
+                UserActionImage.COLUMN_NAME_USER_ACTION_ID,
+                UserActionImage.COLUMN_NAME_EATING_DECISION_ID,
+                UserAction.COLUMN_NAME_ACTIVE,
+                cravingDecisionId
+        );
+        Log.d("UserActionDataSource", String.format("getRowCount: %s", query));
+        return db.rawQuery(query, null).getCount();
+    }
+
+    /**
      * Get the last user action ID
      *
      * @return ID as long

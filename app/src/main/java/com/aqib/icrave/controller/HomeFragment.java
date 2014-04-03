@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aqib.icrave.R;
+import com.aqib.icrave.model.CravingDecision;
 import com.aqib.icrave.model.ImagesDataSource;
 import com.aqib.icrave.model.UserActionImagesDataSource;
 import com.aqib.icrave.model.UserActionsDataSource;
@@ -33,6 +35,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        setCounts(rootView);
 
         final ICraveDisabledDialogFragment dialog = new ICraveDisabledDialogFragment();
         final Toast imageToast = Toast.makeText(getActivity().getApplicationContext(), R.string.cannot_connect_to_server, Toast.LENGTH_SHORT);
@@ -63,6 +67,32 @@ public class HomeFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void setCounts(View rootView) {
+        UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
+        try {
+            actionsDS.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        //set total cravings
+        long totalCravings = actionsDS.getActiveRowCount();
+        ((TextView)rootView.findViewById(R.id.total_cravings)).setText(totalCravings + "");
+
+        //set saved cravings
+        long totalSaved = actionsDS.getRowCount(CravingDecision.SAVE);
+        ((TextView)rootView.findViewById(R.id.total_saved)).setText(totalSaved + "");
+
+        //set healthy cravings
+        long totalHealthy = actionsDS.getRowCount(CravingDecision.EAT_HEALTHY);
+        ((TextView)rootView.findViewById(R.id.total_healthy)).setText(totalHealthy + "");
+
+        //set unhealthy cravings
+        long totalUnhealthy = actionsDS.getRowCount(CravingDecision.EAT_UNHEALTHY);
+        ((TextView)rootView.findViewById(R.id.total_unhealthy)).setText(totalUnhealthy + "");
     }
 
     private boolean hasImages() {
@@ -168,5 +198,7 @@ public class HomeFragment extends Fragment {
 
         ((HistoryFragment)historyFragment).resetListView(actionsDS);
         actionsDS.close();
+
+        setCounts(getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
     }
 }

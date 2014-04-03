@@ -39,5 +39,10 @@
     <string name="could_not_sync_msg">Could not sync at this time, please try later.</string>
     <string name="nothing_to_sync_msg">Nothing to sync</string>
     <string name="cannot_connect_to_server">Cannot connect to server</string>
+    <string name="total_cravings_colon">Total Cravings:</string>
+    <string name="saved_cravings_colon">Saved Cravings:</string>
+    <string name="healthy_snacks_colon">Healthy Snacks:</string>
+    <string name="unhealthy_snacks_colon">Unhealthy Snacks:</string>
+    <string name="zero">0</string>
 
 </resources>
