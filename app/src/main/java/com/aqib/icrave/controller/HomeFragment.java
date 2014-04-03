@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.aqib.icrave.R;
 import com.aqib.icrave.model.CravingDecision;
 import com.aqib.icrave.model.ImagesDataSource;
+import com.aqib.icrave.model.UserAction;
+import com.aqib.icrave.model.UserActionImage;
 import com.aqib.icrave.model.UserActionImagesDataSource;
 import com.aqib.icrave.model.UserActionsDataSource;
 
@@ -52,7 +55,7 @@ public class HomeFragment extends Fragment {
                         return;
                     }
 
-                    if (timeRemaining < 0) {
+                    if (timeRemaining <= 0) {
                         startICraveOptionsActivity();
                     } else {
                         dialog.setTimeRemaining(timeRemaining);
@@ -123,11 +126,23 @@ public class HomeFragment extends Fragment {
         return true;
     }
 
-    public long getTimeRemaining() throws SQLException {
+    public long getTimeRemaining() throws SQLException, CursorIndexOutOfBoundsException {
         //get the time of the last user action
         UserActionsDataSource actionDS = new UserActionsDataSource(getActivity().getApplicationContext());
+        UserActionImagesDataSource imageDS = new UserActionImagesDataSource(getActivity().getApplicationContext());
         actionDS.open();
-        long lastCreatedDate = actionDS.getLastCreatedTime().getTime();
+        imageDS.open();
+
+        UserAction action = actionDS.getLastCreated();
+        UserActionImage image = imageDS.getByUserActionId(action.getId());
+
+        //if the last action was a healthy or unhealthy snack then the user does not need to wait to press iCrave
+        boolean noWaitForSnack = !getResources().getBoolean(R.bool.ICRAVE_TIME_INTERVAL_FOR_HEALTHY_OR_UNHEALTHY_SNACKS);
+        if (noWaitForSnack && (image.getEatingDecisionId() == CravingDecision.EAT_HEALTHY || image.getEatingDecisionId() == CravingDecision.EAT_UNHEALTHY))
+            return -1;
+
+        //calculate how long the user needs to wait
+        long lastCreatedDate = action.getCreatedTime().getTime();
         long now = new Date().getTime() / 1000;
         long delay = getResources().getInteger(R.integer.ICRAVE_TIME_INTERVAL);
         long timeRemaining = (lastCreatedDate + delay) - now;   // 1200 milliseconds is 20 minutes

@@ -27,7 +27,7 @@ public class UserAction {
             TABLE_NAME, COLUMN_NAME_ID, COLUMN_NAME_CREATED_TIME, COLUMN_NAME_UNDO_TIME, COLUMN_NAME_ACTIVE, COLUMN_NAME_SYNCHRONISED
     );
 
-    private int id;
+    private long id;
     private Date createdTime;
     private Date undoTime;
     private boolean active;
@@ -36,11 +36,11 @@ public class UserAction {
     public UserAction() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

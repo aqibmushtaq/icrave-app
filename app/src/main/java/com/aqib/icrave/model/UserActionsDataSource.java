@@ -140,26 +140,34 @@ public class UserActionsDataSource {
      * The the last created time of the most recent active record.
      * @return The date if the action exists, otherwise a newly initialised date object.
      */
-    public Date getLastCreatedTime() {
-        long lastId;
-        try {
-            lastId = getLastActiveId();
-        } catch (CursorIndexOutOfBoundsException ex) {
-            return new Date(0);
-        }
+    public UserAction getLastCreated() throws CursorIndexOutOfBoundsException {
+        long lastId = getLastActiveId();
 
         Cursor c = db.query(
                 UserAction.TABLE_NAME,
-                new String[] {UserAction.COLUMN_NAME_CREATED_TIME},
+                UserAction.ALL_COLUMNS,
                 String.format("%s=?", UserAction.COLUMN_NAME_ID),
                 new String[] {String.valueOf(lastId)},
                 null,
                 null,
                 null
         );
-        if (c.moveToFirst())
-            return new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME)));
-        return new Date(0);
+
+        if (c.moveToFirst()) {
+            return getUserAction(c);
+        }
+
+        throw new CursorIndexOutOfBoundsException("No row to return");
+    }
+
+    private UserAction getUserAction(Cursor c) {
+        UserAction action = new UserAction();
+        action.setActive(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_ACTIVE)).equals("1"));
+        action.setCreatedTime(new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME))));
+        action.setId(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_ID)));
+        action.setSynchronised(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_ID)).equals("TRUE"));
+        action.setUndoTime(new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_UNDO_TIME))));
+        return action;
     }
 
     public List<UserAction> getAllUnsynced() throws ParseException {
@@ -167,13 +175,7 @@ public class UserActionsDataSource {
 
         Cursor c = db.query(UserAction.TABLE_NAME, UserAction.ALL_COLUMNS, String.format("%s=?", UserAction.COLUMN_NAME_SYNCHRONISED), new String[]{"FALSE"}, null, null, null);
         while (c.moveToNext()) {
-            UserAction action = new UserAction();
-            action.setId(c.getInt(c.getColumnIndex(UserAction.COLUMN_NAME_ID)));
-            action.setActive(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_ACTIVE)).equals("1"));
-            action.setCreatedTime(new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME))));
-            action.setSynchronised(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_SYNCHRONISED)).equals("1"));
-            action.setUndoTime(new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_UNDO_TIME))));
-            actions.add(action);
+            actions.add(getUserAction(c));
         }
 
         Log.d("UserActionDataSource/getAllUnsynced", String.format("Return %d user actions", actions.size()));

@@ -2,6 +2,7 @@ package com.aqib.icrave.model;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -80,22 +81,51 @@ public class UserActionImagesDataSource {
         return c.getLong(0);
     }
 
+    /**
+     * Get the User Action Image by the related User Action id. If there are many User Action
+     * Images then the most recent is return.
+     * @param actionId
+     * @return UserActionImage for the UserAction
+     */
+    public UserActionImage getByUserActionId(long actionId) {
+        Cursor c = db.query(
+                false,
+                UserActionImage.TABLE_NAME,
+                UserActionImage.ALL_COLUMNS,
+                String.format("%s=?", UserActionImage.COLUMN_NAME_USER_ACTION_ID),
+                new String[] {String.valueOf(actionId)},
+                null,
+                null,
+                String.format("%s DESC", UserActionImage.COLUMN_NAME_CREATED_TIME),
+                "1"
+        );
+        if (c.moveToFirst())
+            return getUserActionImage(c);
+
+        throw new CursorIndexOutOfBoundsException("No row to return");
+    }
+
     public List<UserActionImage> getAllUnsynced() throws ParseException {
         List<UserActionImage> images = new ArrayList<UserActionImage>();
 
         Cursor c = db.query(UserActionImage.TABLE_NAME, UserActionImage.ALL_COLUMNS, String.format("%s=?", UserActionImage.COLUMN_NAME_SYNCHRONISED), new String[]{"FALSE"}, null, null, null);
         while (c.moveToNext()) {
-            UserActionImage image = new UserActionImage();
-            image.setId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_ID)));
-            image.setUserActionId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_USER_ACTION_ID)));
-            image.setCreatedTime(new Date(c.getLong(c.getColumnIndex(UserActionImage.COLUMN_NAME_CREATED_TIME))));
-            image.setServerImageId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_SERVER_IMAGE_ID)));
-            image.setRating(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_RATING)));
-            image.setEatingDecisionId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_EATING_DECISION_ID)));
+            UserActionImage image = getUserActionImage(c);
             images.add(image);
         }
 
         Log.d("UserActionDataSource/getAllUnsynced", String.format("Return %d user actions", images.size()));
         return images;
+    }
+
+    private UserActionImage getUserActionImage(Cursor c) {
+        UserActionImage image = new UserActionImage();
+        image.setId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_ID)));
+        image.setUserActionId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_USER_ACTION_ID)));
+        image.setCreatedTime(new Date(c.getLong(c.getColumnIndex(UserActionImage.COLUMN_NAME_CREATED_TIME))));
+        image.setServerImageId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_SERVER_IMAGE_ID)));
+        image.setRating(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_RATING)));
+        image.setEatingDecisionId(c.getInt(c.getColumnIndex(UserActionImage.COLUMN_NAME_EATING_DECISION_ID)));
+        return image;
     }
 }
