@@ -44,47 +44,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(UserAction.CREATE_USER_ACTION_TABLE);
         sqLiteDatabase.execSQL(UserActionImage.CREATE_USER_ACTION_IMAGE_TABLE);
         sqLiteDatabase.execSQL(Image.CREATE_IMAGES_TABLE);
-
-        //download images from server
-        AsyncTask<String, Integer, List<Image>> downloadImages = new AsyncTask<String, Integer, List<Image>>() {
-            @Override
-            protected List<Image> doInBackground(String... urls) {
-                try {
-                    List<Image> images = ImagesDataSource.getAllImagesFromServer(urls[0].toString());
-                    Log.d("DatabaseHandler", String.format("Downloaded %s images", images.size()));
-                    return images;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                Log.d("DatabaseHandler", "Returning null images");
-                return null;
-            }
-        };
-
-        String address = context.getString(R.string.server_address);
-        String endpoint = context.getString(R.string.server_rest_url_images_all);
-        String apiKeyParam = context.getString(R.string.server_rest_param_api_key);
-        String apiKey = context.getString(R.string.server_api_key);
-        downloadImages.execute(String.format("%s%s?%s=%s", address, endpoint, apiKeyParam, apiKey));
-
-        //insert the downloaded images into the database
-        try {
-            List<Image> images = downloadImages.get();
-            for (Image image : images) {
-                ContentValues values = new ContentValues();
-                values.put(Image.COLUMN_NAME_ID, image.getId());
-                values.put(Image.COLUMN_NAME_SERVER_ID, image.getServerId());
-                values.put(Image.COLUMN_NAME_TITLE, image.getTitle());
-                sqLiteDatabase.insert(Image.TABLE_NAME, null, values);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -11,12 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aqib.icrave.R;
+import com.aqib.icrave.model.ImagesDataSource;
+import com.aqib.icrave.model.UserActionImagesDataSource;
 import com.aqib.icrave.model.UserActionsDataSource;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Home fragment
@@ -30,6 +35,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         final ICraveDisabledDialogFragment dialog = new ICraveDisabledDialogFragment();
+        final Toast imageToast = Toast.makeText(getActivity().getApplicationContext(), R.string.cannot_connect_to_server, Toast.LENGTH_SHORT);
 
         //set on click listener to iCrave button
         rootView.findViewById(R.id.icrave).setOnClickListener(new View.OnClickListener() {
@@ -37,9 +43,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     long timeRemaining = (long)Math.ceil((double)getTimeRemaining() / (double)60);  //round up to the nearest minute
-                    if (timeRemaining < 0)
+                    if (!hasImages()) {  //get the images if they haven't already been downloaded
+                        imageToast.show();
+                        return;
+                    }
+
+                    if (timeRemaining < 0) {
                         startICraveOptionsActivity();
-                    else {
+                    } else {
                         dialog.setTimeRemaining(timeRemaining);
                         dialog.show(getFragmentManager(), "");
                     }
@@ -52,6 +63,34 @@ public class HomeFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private boolean hasImages() {
+        ImagesDataSource imagesDS = new ImagesDataSource(getActivity().getApplicationContext());
+        try {
+            imagesDS.open();
+        } catch (SQLException e) {
+            Log.e("HomeFragment", e.toString());
+            return false;
+        }
+
+        if (imagesDS.getRowCount() == 0) {
+            try {
+                imagesDS.downloadAndInsertImages();  //download images
+                return true;
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+                return false;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return false;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public long getTimeRemaining() throws SQLException {
