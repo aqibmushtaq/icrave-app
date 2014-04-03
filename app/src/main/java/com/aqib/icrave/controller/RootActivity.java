@@ -19,8 +19,8 @@ public class RootActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_nutrition:
-                startActivity(new Intent(this, NutritionActivity.class));
+            case R.id.action_portion_sizes:
+                startActivity(new Intent(this, PortionSizesActivity.class));
                 return true;
             case R.id.action_consent:
                 startActivity(new Intent(this, ConsentActivity.class));
