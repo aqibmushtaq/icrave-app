@@ -133,7 +133,13 @@ public class HomeFragment extends Fragment {
         actionDS.open();
         imageDS.open();
 
-        UserAction action = actionDS.getLastCreated();
+        UserAction action;
+        try {
+            action = actionDS.getLastCreated();
+        } catch (CursorIndexOutOfBoundsException e) {
+            Log.d("HomeFragment", "No previous record found");
+            return -1;
+        }
         UserActionImage image = imageDS.getByUserActionId(action.getId());
 
         //if the last action was a healthy or unhealthy snack then the user does not need to wait to press iCrave
