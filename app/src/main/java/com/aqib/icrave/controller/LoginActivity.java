@@ -44,7 +44,7 @@ public class LoginActivity extends ActionBarActivity {
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
-            ((TextView)rootView.findViewById(R.id.password_instructions)).setText(FileLoader.readRawTextFile(getActivity().getApplicationContext(), R.raw.password_instructions));
+            ((TextView)rootView.findViewById(R.id.password_instructions)).setText(FileLoader.readRawTextFile(getActivity().getApplicationContext(), R.raw.registration_instructions));
 
             //button listeners
             setRegisterListener(rootView);

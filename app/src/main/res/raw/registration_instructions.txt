@@ -1,3 +1,6 @@
+Email instructions:
+ - Please input the same email address you provided in the screening questionnaire.
+
 Password instructions:
  - Between 6 and 30 characters
  - Alphanumeric characters, underscores and hyphens
