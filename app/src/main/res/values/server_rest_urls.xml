@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="server_rest_url_users_login">/users/login</string>
+    <string name="server_rest_url_users_register">/users/create</string>
     <string name="server_rest_url_images_all">/images/all</string>
     <string name="server_rest_url_user_action_create">/user-actions/create</string>
 </resources>

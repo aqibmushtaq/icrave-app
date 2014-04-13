@@ -47,5 +47,21 @@
     <string name="help_me_resist">Help me resist</string>
     <string name="save_for_later">Save for later</string>
     <string name="need_another_task">Need another task</string>
+    <string name="title_activity_login">Login</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="error_no_email">Please provide an email address</string>
+    <string name="error_wrong_email_format">Please provide a valid email address</string>
+    <string name="error_no_password">Please provide a password</string>
+    <string name="error_wrong_password_format">Please provide a valid password</string>
+    <string name="error_server_not_available">Server not available. Please try again later.</string>
+    <string name="msg_login_successful">Login successful</string>
+    <string name="msg_login_unsuccessful">Please enter a valid email address and password</string>
+    <string name="msg_register_successful">Registration successful</string>
+    <string name="msg_register_unsuccessful">Registration failed</string>
+    <string name="msg_register_email_taken">The email address provided is already registered</string>
 
 </resources>
