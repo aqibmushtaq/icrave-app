@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.aqib.icrave.R;
 import com.aqib.icrave.model.CravingDecision;
+import com.aqib.icrave.model.Login;
 import com.aqib.icrave.model.UserAction;
 import com.aqib.icrave.model.UserActionImage;
 import com.aqib.icrave.model.UserActionImagesDataSource;
@@ -71,12 +72,17 @@ public class HistoryFragment extends ListFragment {
             }
         });
 
-
         toastSyncResult = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_SHORT);
         //set on click listener to sync button
         rootView.findViewById(R.id.sync).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //ensure the user is logged in to sync
+                if(!Login.isLoggedIn(getActivity())) {
+                    toastSyncResult.setText(R.string.msg_login_to_continue);
+                    toastSyncResult.show();
+                    return;
+                }
                 syncHistory();
             }
         });
