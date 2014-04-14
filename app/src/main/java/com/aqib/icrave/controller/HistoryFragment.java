@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -174,13 +175,19 @@ public class HistoryFragment extends ListFragment {
             public void onClick(DialogInterface dialog, int id) {
                 //remove from database
                 UserActionsDataSource actionDS = new UserActionsDataSource(getActivity().getApplicationContext());
+                long actionId;
                 try {
                     actionDS.open();
+                    actionId = actionDS.getLastActiveId();
                 } catch (SQLException e) {
                     e.printStackTrace();
                     return;
+                } catch (CursorIndexOutOfBoundsException e) {
+                    toastSyncResult.setText(R.string.msg_nothing_to_sync);
+                    toastSyncResult.show();
+                    actionDS.close();
+                    return;
                 }
-                long actionId = actionDS.getLastActiveId();
                 Log.d("HistoryFragment", String.format("Deleting last action ID found: %s", actionId));
                 actionDS.deleteById(actionId);
 
