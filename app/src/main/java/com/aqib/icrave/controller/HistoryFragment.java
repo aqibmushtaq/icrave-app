@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.aqib.icrave.R;
 import com.aqib.icrave.model.CravingDecision;
 import com.aqib.icrave.model.Login;
+import com.aqib.icrave.model.ServerUtils;
 import com.aqib.icrave.model.UserAction;
 import com.aqib.icrave.model.UserActionImage;
 import com.aqib.icrave.model.UserActionImagesDataSource;
@@ -133,11 +134,16 @@ public class HistoryFragment extends ListFragment {
                 return null;
             }
         };
-        String address = getString(R.string.server_address);
+
         String endpoint = getString(R.string.server_rest_url_user_action_create);
-        String apiKeyParam = getString(R.string.server_rest_param_api_key);
-        String apiKey = getString(R.string.server_api_key);
-        syncUserActions.execute(String.format("%s%s?%s=%s", address, endpoint, apiKeyParam, apiKey));
+        String baseUrl = ServerUtils.getBaseUrl(getActivity().getApplicationContext(), endpoint);
+
+        String userIdParam = getString(R.string.server_rest_param_user_id);
+        String userId = Login.getUserId(getActivity()) + "";
+
+        String url = String.format("%s&%s=%s", baseUrl, userIdParam, userId);
+
+        syncUserActions.execute(url);
 
         try {
             List<UserAction> results = syncUserActions.get();

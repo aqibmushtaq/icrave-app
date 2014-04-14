@@ -131,8 +131,12 @@ public class Login {
     }
 
     public static boolean isLoggedIn(Activity activity) {
-        SharedPreferences prefs = activity.getSharedPreferences(LoginActivity.PREF_FILE_NAME, Activity.MODE_PRIVATE);
-        return prefs.getLong(LoginActivity.PREF_USER_ID_NAME, -1) != -1;
+        return getUserId(activity) != -1;
 
+    }
+
+    public static long getUserId(Activity activity) {
+        SharedPreferences prefs = activity.getSharedPreferences(LoginActivity.PREF_FILE_NAME, Activity.MODE_PRIVATE);
+        return prefs.getLong(LoginActivity.PREF_USER_ID_NAME, -1);
     }
 }

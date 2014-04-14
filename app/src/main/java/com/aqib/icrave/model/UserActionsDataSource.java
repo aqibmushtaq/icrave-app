@@ -162,7 +162,7 @@ public class UserActionsDataSource {
 
     private UserAction getUserAction(Cursor c) {
         UserAction action = new UserAction();
-        action.setActive(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_ACTIVE)).equals("1"));
+        action.setActive(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_ACTIVE)).equals("TRUE"));
         action.setCreatedTime(new Date(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_CREATED_TIME))));
         action.setId(c.getLong(c.getColumnIndex(UserAction.COLUMN_NAME_ID)));
         action.setSynchronised(c.getString(c.getColumnIndex(UserAction.COLUMN_NAME_ID)).equals("TRUE"));

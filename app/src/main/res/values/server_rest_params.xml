@@ -3,4 +3,5 @@
     <string name="server_rest_param_api_key">apiKey</string>
     <string name="server_rest_param_email">email</string>
     <string name="server_rest_param_password">password</string>
+    <string name="server_rest_param_user_id">user_id</string>
 </resources>
