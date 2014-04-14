@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.aqib.icrave.R;
 import com.aqib.icrave.model.CravingDecision;
 import com.aqib.icrave.model.ImagesDataSource;
+import com.aqib.icrave.model.Login;
 import com.aqib.icrave.model.UserAction;
 import com.aqib.icrave.model.UserActionImage;
 import com.aqib.icrave.model.UserActionImagesDataSource;
@@ -49,6 +50,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
+                    //ensure the user has logged in to continue
+                    if(!Login.isLoggedIn(getActivity())) {
+                        imageToast.setText(R.string.msg_login_to_continue);
+                        imageToast.show();
+                        return;
+                    }
+
+                    //get the amount of time the user has to wait until they can use icrave
                     long timeRemaining = (long)Math.ceil((double)getTimeRemaining() / (double)60);  //round up to the nearest minute
                     if (!hasImages()) {  //get the images if they haven't already been downloaded
                         imageToast.show();

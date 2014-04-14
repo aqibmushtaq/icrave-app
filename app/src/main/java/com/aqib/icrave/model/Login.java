@@ -1,5 +1,6 @@
 package com.aqib.icrave.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -129,4 +130,9 @@ public class Login {
         );
     }
 
+    public static boolean isLoggedIn(Activity activity) {
+        SharedPreferences prefs = activity.getSharedPreferences(LoginActivity.PREF_FILE_NAME, Activity.MODE_PRIVATE);
+        return prefs.getLong(LoginActivity.PREF_USER_ID_NAME, -1) != -1;
+
+    }
 }
