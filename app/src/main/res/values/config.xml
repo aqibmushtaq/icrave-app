@@ -6,4 +6,5 @@
     <integer name="ICRAVE_TIME_INTERVAL">1200</integer> <!-- The time (in seconds) delay for allowing the user to use iCrave -->
     <bool name="ICRAVE_TIME_INTERVAL_FOR_HEALTHY_OR_UNHEALTHY_SNACKS">false</bool> <!-- The user will be required to wait if their last decision was to eat a (un)healthy snack -->
 
+    <bool name="enable_visualise">true</bool> <!-- Enable the visualise (Help me resist) button on the iCrave Options screen -->
 </resources>
