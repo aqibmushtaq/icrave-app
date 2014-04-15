@@ -66,5 +66,7 @@
     <string name="msg_login_to_continue">Please Login to continue</string>
     <string name="msg_nothing_to_sync">Nothing to sync</string>
     <string name="msg_register_access_code_incorrect">Please provide a valid access code</string>
+    <string name="access_code">Access code</string>
+    <string name="provide_access_code_to_proceed">Please provide an access code to proceed with registration</string>
 
 </resources>

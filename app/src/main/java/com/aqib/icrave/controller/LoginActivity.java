@@ -146,8 +146,8 @@ public class LoginActivity extends ActionBarActivity {
                 accessCode.setInputType(InputType.TYPE_CLASS_NUMBER);
                 accessCode.setTextColor(Color.BLACK);
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Update Status")
-                        .setMessage("Access code")
+                        .setTitle(R.string.access_code)
+                        .setMessage(R.string.provide_access_code_to_proceed)
                         .setView(accessCode)
                         .setPositiveButton(R.string.register, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
