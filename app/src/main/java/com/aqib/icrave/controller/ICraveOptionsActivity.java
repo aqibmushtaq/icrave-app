@@ -79,7 +79,6 @@ public class ICraveOptionsActivity extends RootActivity {
 
             //only show the visualise image button if is enabled in the config
             if (getResources().getBoolean(R.bool.enable_visualise)) {
-                Log.d("ICraveOptionsActivity", "VIS ENABLED");
                 View.OnClickListener visualiseAction = new VisualiseActionListener();
                 rootView.findViewById(R.id.button_visualise).setOnClickListener(visualiseAction);
             } else {
