@@ -27,6 +27,8 @@ import com.aqib.icrave.model.UserActionImagesDataSource;
 import com.aqib.icrave.model.UserActionsDataSource;
 import com.aqib.icrave.view.StatusCircle;
 
+import org.apache.http.conn.HttpHostConnectException;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -120,6 +122,9 @@ public class HistoryFragment extends ListFragment {
                     List<UserActionImage> allUnsyncedImages = actionImagesDS.getAllUnsynced();
                     UserActionsDataSource.putUserActions(urls[0], allUnsyncedActions, allUnsyncedImages);
                     return allUnsyncedActions;
+                } catch (HttpHostConnectException e) {
+                    e.printStackTrace();
+                    showCouldNotSyncMessage();
                 } catch (ParseException e) {
                     e.printStackTrace();
                     showCouldNotSyncMessage();
@@ -147,6 +152,9 @@ public class HistoryFragment extends ListFragment {
 
         try {
             List<UserAction> results = syncUserActions.get();
+            if (results == null)
+                return;
+
             if (results.size() == 0) {
                 toastSyncResult.setText(getString(R.string.nothing_to_sync_msg));
                 toastSyncResult.show();

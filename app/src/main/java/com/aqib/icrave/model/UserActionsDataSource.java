@@ -11,6 +11,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -224,7 +225,7 @@ public class UserActionsDataSource {
         return db.update(UserAction.TABLE_NAME, values, String.format("%s=?", UserAction.COLUMN_NAME_ID), new String[]{id + ""}) > 0;
     }
 
-    public static boolean putUserActions(String url, List<UserAction> actions, List<UserActionImage> images) throws IOException {
+    public static boolean putUserActions(String url, List<UserAction> actions, List<UserActionImage> images) throws IOException, HttpHostConnectException {
         //Build JSON object
         JSONArray jsonActions = new JSONArray();
         Log.d("UserActionsDataSource/putUserActions", String.format("Adding %d actions to the JSON array", actions.size()));
