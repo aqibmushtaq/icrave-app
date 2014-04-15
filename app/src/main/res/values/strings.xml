@@ -65,5 +65,6 @@
     <string name="msg_register_email_taken">The email address provided is already registered</string>
     <string name="msg_login_to_continue">Please Login to continue</string>
     <string name="msg_nothing_to_sync">Nothing to sync</string>
+    <string name="msg_register_access_code_incorrect">Please provide a valid access code</string>
 
 </resources>

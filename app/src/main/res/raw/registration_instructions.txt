@@ -4,3 +4,6 @@ Email instructions:
 Password instructions:
  - Between 6 and 30 characters
  - Alphanumeric characters, underscores and hyphens
+
+Registrations:
+ - You will be prompted for an access code
