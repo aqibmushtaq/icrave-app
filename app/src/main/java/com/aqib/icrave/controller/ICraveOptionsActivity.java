@@ -77,8 +77,14 @@ public class ICraveOptionsActivity extends RootActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_icrave_options, container, false);
 
-            View.OnClickListener visualiseAction = new VisualiseActionListener();
-            rootView.findViewById(R.id.button_visualise).setOnClickListener(visualiseAction);
+            //only show the visualise image button if is enabled in the config
+            if (getResources().getBoolean(R.bool.enable_visualise)) {
+                Log.d("ICraveOptionsActivity", "VIS ENABLED");
+                View.OnClickListener visualiseAction = new VisualiseActionListener();
+                rootView.findViewById(R.id.button_visualise).setOnClickListener(visualiseAction);
+            } else {
+                rootView.findViewById(R.id.button_visualise).setVisibility(View.INVISIBLE);
+            }
 
             View.OnClickListener saveAction = new SaveUserActionListener();
             rootView.findViewById(R.id.button_save).setOnClickListener(saveAction);
