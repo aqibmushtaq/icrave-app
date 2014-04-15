@@ -86,7 +86,14 @@ public class ICraveOptionsActivity extends RootActivity {
             }
 
             View.OnClickListener saveAction = new SaveUserActionListener();
-            rootView.findViewById(R.id.button_save).setOnClickListener(saveAction);
+
+            //only show the save button if is enabled in the config
+            if (getResources().getBoolean(R.bool.enable_save_for_later)) {
+                rootView.findViewById(R.id.button_save).setOnClickListener(saveAction);
+            } else {
+                rootView.findViewById(R.id.button_save).setVisibility(View.INVISIBLE);
+            }
+
             rootView.findViewById(R.id.button_healthy_snack).setOnClickListener(saveAction);
             rootView.findViewById(R.id.button_unhealthy_snack).setOnClickListener(saveAction);
 

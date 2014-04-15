@@ -94,7 +94,14 @@ public class ResultFragment extends Fragment {
             }
         };
 
-        buttonSave.setOnClickListener(resultClickListener);
+        //set action listeners
+        //only show the save button if is enabled in the config
+        if (getResources().getBoolean(R.bool.enable_save_for_later)) {
+            buttonSave.setOnClickListener(resultClickListener);
+        } else {
+            buttonSave.setVisibility(View.INVISIBLE);
+        }
+
         buttonHealthy.setOnClickListener(resultClickListener);
         buttonUnhealthy.setOnClickListener(resultClickListener);
         buttonAnotherImage.setOnClickListener(resultClickListener);
