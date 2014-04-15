@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class HistoryFragment extends ListFragment {
     private ListView listView;
     private MyAdapter listAdapter;
     private Toast toastSyncResult;
+    private Fragment homeFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +93,11 @@ public class HistoryFragment extends ListFragment {
         });
 
         return rootView;
+    }
+
+
+    public void setHomeFragment(Fragment homeFragment) {
+        this.homeFragment = homeFragment;
     }
 
     @Override
@@ -215,6 +222,10 @@ public class HistoryFragment extends ListFragment {
                 resetListView(actionDS);
 
                 actionDS.close();
+
+                //also refresh the counts displayed on the home fragment
+                ((HomeFragment)homeFragment).setCounts(getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+
             }
         });
 

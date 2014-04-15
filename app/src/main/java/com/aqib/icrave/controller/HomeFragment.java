@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private void setCounts(View rootView) {
+    public void setCounts(View rootView) {
         UserActionsDataSource actionsDS = new UserActionsDataSource(getActivity().getApplicationContext());
         try {
             actionsDS.open();

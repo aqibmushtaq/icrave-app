@@ -20,11 +20,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                if (homeFragment == null) {
-                    homeFragment = new HomeFragment();
-                    ((HomeFragment)homeFragment).setHistoryFragment(getHistoryFragment());
-                }
-                return homeFragment;
+                return getHomeFragment();
             case 1:
                 return getHistoryFragment();
 
@@ -33,9 +29,19 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     }
 
     private Fragment getHistoryFragment () {
-        if (historyFragment == null)
+        if (historyFragment == null) {
             historyFragment = new HistoryFragment();
+            ((HistoryFragment)historyFragment).setHomeFragment(getHomeFragment());
+        }
         return historyFragment;
+    }
+
+    private Fragment getHomeFragment() {
+        if (homeFragment == null) {
+            homeFragment = new HomeFragment();
+            ((HomeFragment)homeFragment).setHistoryFragment(getHistoryFragment());
+        }
+        return homeFragment;
     }
 
     @Override
@@ -54,5 +60,4 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 2;
     }
-
 }
